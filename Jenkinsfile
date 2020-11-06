@@ -50,6 +50,11 @@ pipeline {
         }
       }
     }
+    stage ('celan up image'){
+      steps {
+        sh 'docker rmi hisbu/project-pipeline'
+      }
+    }
   }
 }
 
