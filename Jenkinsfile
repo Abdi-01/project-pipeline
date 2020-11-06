@@ -55,6 +55,16 @@ pipeline {
         sh 'docker rmi hisbu/project-pipeline'
       }
     }
+    stage ('Deploy to kubernetes') {
+      steps{
+        sh "chmod +x changeTag.sh"
+        sh "./changeTag.sh ${DOCKER_TAG}"
+        sshagent(['kubeMasterAccess']){
+          sh "scp -o StrictHostKeyChecking=no reactapp-config.k8s.yaml hisbu@52.187.166.101:/home/hisbu/project-pipeline"
+          sh "ssh hisbu@52.187.166.101 sudo kubectl apply -f project-pipeline/."
+        }
+      }
+    }
   }
 }
 

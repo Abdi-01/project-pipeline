@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: react-app2
-          image: hisbu/reactapp-test:tagVersion
+          image: hisbu/project-pipeline:tagVersion
           ports: 
             - containerPort: 80
 
@@ -35,5 +35,3 @@ spec:
     - port: 3000
       targetPort: 80
       nodePort: 30010
-    
-    
