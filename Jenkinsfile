@@ -21,5 +21,12 @@ pipeline {
         sh 'npm run build'
       }
     }
+    stage ('Build DOcker Image'){
+      steps {
+        script {
+          app = docker.build("hisbu/project-pipeline")
+        }
+      }
+    }
   }
 }
