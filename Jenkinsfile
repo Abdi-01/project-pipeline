@@ -34,5 +34,10 @@ pipeline {
         input message: "selesai test docker image? (Click procced to continue!)"
       }
     }
+    stage ('Clean updocker test'){
+      steps {
+        sh 'docker stop testImages'
+      }
+    }
   }
 }
