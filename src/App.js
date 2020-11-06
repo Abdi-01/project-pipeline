@@ -16,6 +16,7 @@ class App extends Component {
           test
         </p>
         <Clock format={'HH:mm:ss'} ticking={true} timezone={'Asia/Jakarta'} />
+        <h1>Terima kasih sudah mengunjungi website kami</h1>
       </div>
     );
   }
