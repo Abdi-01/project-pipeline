@@ -16,5 +16,10 @@ pipeline {
         sh './jenkins/scripts/test.sh'
       }
     }
+    stage('Build Project react'){
+      steps{
+        sh 'npm run build'
+      }
+    }
   }
 }
