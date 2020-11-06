@@ -42,9 +42,11 @@ pipeline {
     }
     stage ('push imate to registry'){
       steps {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub'){
-          app.push("${DOCKER_TAG}")
-          app.push("latest")
+        scripts{
+          docker.withRegistry('https://registry.hub.docker.com', 'docker-hub'){
+            app.push("${DOCKER_TAG}")
+            app.push("latest")
+          }
         }
       }
     }
