@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-// import Clock from 'react-live-clock';
+import Clock from 'react-live-clock';
 
 class App extends Component {
   render() {
@@ -15,6 +15,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
           test
         </p>
+        <Clock format={'HH:mm:ss'} ticking={true} timezone={'Asia/Jakarta'} />
       </div>
     );
   }
