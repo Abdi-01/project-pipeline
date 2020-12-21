@@ -22,7 +22,7 @@ pipeline {
         sh 'npm run build'
       }
     }
-    stage ('Build DOcker Image'){
+    stage ('Build Docker Image'){
       steps {
         script {
           app = docker.build("hisbu/project-pipeline")
@@ -55,16 +55,25 @@ pipeline {
         sh 'docker rmi hisbu/project-pipeline'
       }
     }
-    stage ('Deploy to kubernetes') {
-      steps{
-        sh "chmod +x changeTag.sh"
-        sh "./changeTag.sh ${DOCKER_TAG}"
-        sshagent(['kubeMasterAccess']){
-          sh "scp -o StrictHostKeyChecking=no reactapp-config.k8s.yaml hisbu@52.187.166.101:/home/hisbu/project-pipeline"
-          sh "ssh hisbu@52.187.166.101 sudo kubectl apply -f project-pipeline/."
+    stage('Apply Kubernetes files') {
+        steps{
+          sh "chmod +x changeTag.sh"
+          sh "./changeTag.sh ${DOCKER_TAG}"
+          withKubeConfig([credentialsId: 'kube-db-file', serverUrl: 'https://fee2331f-d6dc-4a3d-9e2e-1ef2e66582ff.ap-south-1.linodelke.net:443']) {
+            sh 'kubectl apply -f frontend.yaml'
+          }
         }
-      }
     }
+    // stage ('Deploy to kubernetes') {
+    //   steps{
+    //     sh "chmod +x changeTag.sh"
+    //     sh "./changeTag.sh ${DOCKER_TAG}"
+    //     sshagent(['kubeMasterAccess']){
+    //       sh "scp -o StrictHostKeyChecking=no reactapp-config.k8s.yaml hisbu@52.187.166.101:/home/hisbu/project-pipeline"
+    //       sh "ssh hisbu@52.187.166.101 sudo kubectl apply -f project-pipeline/."
+    //     }
+    //   }
+    // }
   }
 }
 
