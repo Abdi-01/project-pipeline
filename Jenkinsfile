@@ -60,7 +60,7 @@ pipeline {
           sh "chmod +x changeTag.sh"
           sh "./changeTag.sh ${DOCKER_TAG}"
           withKubeConfig([credentialsId: 'kube-db-file', serverUrl: 'https://1400dfbf-6b09-48e7-9df1-38fcddad6426.k8s.ondigitalocean.com']) {
-            sh 'kubectl apply -f reactapp-config.k8s'
+            sh 'kubectl apply -f reactapp-config.k8s.yaml'
           }
         }
     }
