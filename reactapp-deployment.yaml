@@ -28,10 +28,10 @@ kind: Service
 metadata:
   name: react-app2-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     name: react-app2
   ports:
     - port: 3000
       targetPort: 80
-      # nodePort: 30010
+      nodePort: 30010
